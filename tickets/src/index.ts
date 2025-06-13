@@ -4,11 +4,21 @@ import { natsWrapper } from "./nats-wrapper";
 
 const start = async () => {
   if (!process.env.JWT_KEY) throw new Error("JWT token not provided");
-  if (!process.env.MONGO_URI) throw new Error("Mongodb url not provided");
+  if (!process.env.MONGO_URI) throw new Error("MONGO_URI not provided");
+
+  if (!process.env.NATS_CLIENT_ID) throw new Error("NATS_CLIENT_ID not provided");
+
+  if (!process.env.NATS_URL) throw new Error("NATS_URL not provided");
+
+  if (!process.env.NATS_CLUSTER_ID) throw new Error("NATS_CLUSTER_ID not provided");
 
   try {
-    await natsWrapper.connect('ticketing', 'ladfs', 'http://nats-srv-4222');
-    
+    await natsWrapper.connect(
+      process.env.NATS_CLUSTER_ID, 
+      process.env.NATS_CLIENT_ID, 
+      process.env.NATS_URL
+    );
+
     natsWrapper.client.on('close', () => {
       process.exit();
     });
