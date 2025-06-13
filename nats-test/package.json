@@ -11,6 +11,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@my-micro-service/common": "^1.0.5",
     "@types/node": "^24.0.1",
     "node-nats-streaming": "^0.3.2",
     "ts-node-dev": "^2.0.0",
