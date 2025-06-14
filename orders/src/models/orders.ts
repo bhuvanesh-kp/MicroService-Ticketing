@@ -14,6 +14,7 @@ interface OrderDocument extends mongoos.Document {
     status: OrderStatus;
     expiresAt: Date;
     ticket: TicketDocument;
+    version: number;
 }
 
 interface OrderModel extends mongoos.Model<OrderDocument> {
