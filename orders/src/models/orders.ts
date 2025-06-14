@@ -1,6 +1,7 @@
 import mongoos from "mongoose";
 import { OrderStatus } from "@my-micro-service/common";
 import { TicketDocument } from "./ticket";
+import { updateIfCurrentPlugin } from "mongoose-update-if-current";
 
 interface OrderAttributes {
     userId: string;
@@ -46,8 +47,10 @@ const OrderSchema = new mongoos.Schema({
             delete ret._id;
         }
     }
-}
-);
+});
+
+OrderSchema.set('versionKey', 'version');
+OrderSchema.plugin(updateIfCurrentPlugin);
 
 OrderSchema.statics.build = (attributes: OrderAttributes) => {
     return new Order(attributes);
