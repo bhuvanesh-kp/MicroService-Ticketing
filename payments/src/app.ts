@@ -1,7 +1,7 @@
 import express from "express";
 import 'express-async-errors';
 import cookieSession from "cookie-session";
-
+import { createChargeRouter } from "./routes/new";
 import { json } from "body-parser";
 import { errorHandler, NotFoundError, currentUser } from "@my-micro-service/common";
 
@@ -13,7 +13,7 @@ app.use(cookieSession({
   secure: process.env.NODE_ENV !== 'test'
 }));
 app.use(currentUser);
-
+app.use(createChargeRouter);
 
 app.use("*", async (req, res) => {
   throw new NotFoundError();
