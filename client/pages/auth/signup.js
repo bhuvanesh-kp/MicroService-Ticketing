@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Router from 'next/router';
 import useRequest from '../../hooks/use-request';
 
@@ -15,8 +15,8 @@ export default () => {
     onSuccess: () => Router.push('/')
   });
 
-  const onSubmit = async (e) => {
-    e.preventDefault();
+  const onSubmit = async event => {
+    event.preventDefault();
 
     await doRequest();
   };
